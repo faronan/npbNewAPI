@@ -6,6 +6,7 @@ authors = ["faronan"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
+bs4 = "^0.0.1"
 
 [tool.poetry.dev-dependencies]
 
