@@ -16,6 +16,8 @@ def get_record(person, url):
     soup = create_soup(url)
     records = soup.select(
         '.bb-liveText__content:contains("{}")'.format(person))
+    if not records:
+        raise Exception("出場していない選手です")
     return list(map(lambda x: list(x.stripped_strings), records))
 
 
