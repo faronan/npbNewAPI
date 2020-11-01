@@ -7,6 +7,11 @@ authors = ["faronan"]
 [tool.poetry.dependencies]
 python = "^3.9"
 bs4 = "^0.0.1"
+graphene = "^2.1.8"
+SQLAlchemy = "^1.3.20"
+graphene-sqlalchemy = "^2.3.0"
+Flask = "^1.1.2"
+Flask-GraphQL = "^2.0.1"
 
 [tool.poetry.dev-dependencies]
 
