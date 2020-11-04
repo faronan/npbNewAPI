@@ -8,6 +8,7 @@ authors = ["faronan"]
 python = "^3.8"
 bs4 = "^0.0.1"
 responder = "^2.0.5"
+graphene = "^2.1.8"
 
 [tool.poetry.dev-dependencies]
 
