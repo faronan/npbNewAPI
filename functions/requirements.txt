@@ -1,0 +1,2 @@
+bs4==0.0.1
+google-cloud-firestore==1.9.0
