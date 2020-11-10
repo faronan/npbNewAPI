@@ -27,7 +27,7 @@ def get_records_if_not_find_repository(date, team, person):
     if docs:
         is_no_game = docs[0].to_dict()[u'content'][u'is_no_game']
         if is_no_game:
-            raise Exception("試合がない日です")
+            raise Exception("球団か日付の指定が間違っています")
 
         result_texts_filter_by_person = [doc.to_dict()[u'content'][u'record'][u'texts']
                                          for doc in docs if doc.to_dict()[u'content'][u'record'][u'person'] == person]
