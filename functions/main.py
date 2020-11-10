@@ -73,6 +73,11 @@ def scraping_game_url(team, date):
     if battle_cards:
         battle_card = battle_cards[0]
         return battle_card.find('a')["href"].replace("index", "text")
+    result_repository = ResultReposiroty()
+    content = Content(is_no_game=True, record=Record(person="", texts=[""]))
+    result = Result(date=date, team=team, content=content)
+    result_repository.save(result)
+
     raise Exception("球団か日付の指定が間違っています")
 
 
