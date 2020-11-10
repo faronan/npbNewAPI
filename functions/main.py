@@ -33,7 +33,7 @@ def get_records_if_not_find_repository(date, team, person):
                                          for doc in docs if doc.to_dict()[u'content'][u'record'][u'person'] == person]
         # 対象の選手のデータもある場合
         if result_texts_filter_by_person:
-            return list(result_texts_filter_by_person.values())
+            return list(sorted(result_texts_filter_by_person[0].values()))
 
     game_url = scraping_game_url(team, date)
     record_texts = scraping_record_texts(person, game_url)
