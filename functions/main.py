@@ -27,13 +27,13 @@ def get_records_if_not_find_repository(date, team, person):
     if docs:
         is_no_game = docs[0].to_dict()[u'content'][u'is_no_game']
         if is_no_game:
-            raise Exception("試合がない日です")
+            raise Exception("球団か日付の指定が間違っています")
 
         result_texts_filter_by_person = [doc.to_dict()[u'content'][u'record'][u'texts']
                                          for doc in docs if doc.to_dict()[u'content'][u'record'][u'person'] == person]
         # 対象の選手のデータもある場合
         if result_texts_filter_by_person:
-            return list(result_texts_filter_by_person.values())
+            return list(sorted(result_texts_filter_by_person[0].values()))
 
     game_url = scraping_game_url(team, date)
     record_texts = scraping_record_texts(person, game_url)
@@ -73,6 +73,11 @@ def scraping_game_url(team, date):
     if battle_cards:
         battle_card = battle_cards[0]
         return battle_card.find('a')["href"].replace("index", "text")
+    result_repository = ResultReposiroty()
+    content = Content(is_no_game=True, record=Record(person="", texts=[""]))
+    result = Result(date=date, team=team, content=content)
+    result_repository.save(result)
+
     raise Exception("球団か日付の指定が間違っています")
 
 
