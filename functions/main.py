@@ -46,7 +46,10 @@ def get_records_if_not_find_repository(date, team, person):
     record = Record(person=person, texts=record_texts)
     content = Content(is_no_game=False, record=record)
     result = Result(date=date, team=team, content=content)
-    result_repository.save(result)
+    if is_today & bool(docs):
+        result_repository.update(result)
+    else:
+        result_repository.save(result)
 
     return record_texts
 
