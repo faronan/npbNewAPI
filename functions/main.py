@@ -1,7 +1,7 @@
 import requests
 import json
 from bs4 import BeautifulSoup
-from google.cloud import firestore
+from datetime import datetime, timedelta, timezone
 
 from result import Record, Result, Content
 from result_repository import ResultReposiroty
@@ -23,8 +23,13 @@ def get_data(request):
 def get_records_if_not_find_repository(date, team, person):
     result_repository = ResultReposiroty()
     docs = result_repository.find(date, team)
-    # 日付と球団でキャッシュしたデータがある場合
-    if docs:
+
+    dt = datetime.strptime(date, '%Y-%m-%d')
+    today = datetime.now(timezone(timedelta(hours=+9), 'JST')).date()
+    is_today = (dt.year == today.year & dt.month ==
+                today.month & dt.day == today.day)
+    # 日付と球団でキャッシュしたデータがある場合はそちらを参照、ただし当日なら毎回スクレイピングして更新する
+    if not is_today & bool(docs):
         is_no_game = docs[0].to_dict()[u'content'][u'is_no_game']
         if is_no_game:
             raise Exception("球団か日付の指定が間違っています")
